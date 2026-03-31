@@ -1,50 +1,43 @@
 
+
+
+
+<h2><?php echo $TitreDeLaPage ?></h2>
 <?php
-
- 
-  /* set_value : en cas de non validation, les données déjà saisies sont réinjectées dans le formulaire */
-  echo form_open('creercompte');
-  echo csrf_field();
- 
-  echo form_label('Nom','txtNom');
-  echo form_input('txtNom1', set_value('txtNom'));
-  echo '<br><br>';
-  
-  echo form_label('Prenom','txtPrenom');
-  echo form_input('txtPrenom', set_value('txtPrenom'));  
-  echo '<br><br>';
-
-  echo form_label('Adresse','txtAdresse');
-  echo form_input('txtAdresse', set_value('txtAdresse'));  
-  echo '<br><br>';
-
-  echo form_label('Code Postal','txtCodePostal');
-  echo form_input('txtCodePostal', set_value('txtCodePostal')); 
-  echo '<br><br>' ;
-
-  echo form_label('Ville','txtVille');
-  echo form_input('txtVille', set_value('txtVille')); 
-  echo '<br><br>' ;
-
-  echo form_label('TelephoneFixe','txtTelephoneFixe');
-  echo form_input('txtTelephoneFixe', set_value('txtTelephoneFixe')); 
-  echo '<br><br>';
-  
-  echo form_label('TelephoneMobile','txtTelephoneMobile');
-  echo form_input('txtTelephoneMobile', set_value('txtTelephoneMobile'));
-  echo '<br><br>';
-
-  echo form_label('Mel','txtMel');
-  echo form_input('txtMel', set_value('txtMel'));
-  echo '<br><br>';
- 
-  echo form_label('Mot de passe','txtMotDePasse');
-  echo form_password('txtMotDePasse', set_value('txtMotDePasse'));    
-  echo '<br><br>';
- 
-  echo form_submit('submit', 'creer');
-  echo form_close();
-  echo '<br><br>';
+if ($TitreDeLaPage == 'Saisie compte incorrecte')
+echo service('validation')->listErrors();
+echo form_open('creercompte');
 ?>
+<?php echo csrf_field(); ?>
+ 
+<label for="txtNom">Nom : </label>
+<input type="input" name="txtNom" value="<?php echo set_value('txtNom'); ?>" /><br />
+
+<label for="txtPrenom">Prenom : </label>
+<input type="input" name="txtPrenom" value="<?php echo set_value('txtPrenom'); ?>" /><br />
+
+<label for="txtAdresse">Adresse : </label>
+<input type="input" name="txtAdresse" value="<?php echo set_value('txtAdresse'); ?>" /><br />
+
+<label for="txtCodePostal">Code Postal : </label>
+<input type="input" name="txtCodePostal" value="<?php echo set_value('txtCodePostal'); ?>" /><br />
+
+<label for="txtVille">ville : </label>
+<input type="input" name="txtVille" value="<?php echo set_value('txtVille'); ?>" /><br />
+
+<label for="txtTelephoneFixe">Téléphone fixe : </label>
+<input type="input" name="txtTelephoneFixe" value="<?php echo set_value('txtTelephoneFixe'); ?>" /><br />
+
+<label for="txtTelephoneMobile">Téléphone mobile : </label>
+<input type="input" name="txtTelephoneMobile" value="<?php echo set_value('txtTelephoneMobile'); ?>" /><br />
+
+<label for="txtMel">Mel : </label>
+<input type="input" name="txtMel" value="<?php echo set_value('txtMel'); ?>" /><br />
+
+<label for="txtMotDePasse">Mot de passe : </label>
+<input type="input" name="txtMotDePasse" value="<?php echo set_value('txtMotDePasse'); ?>" /><br />
+
+<input type="submit" name="submit" value="Creer un compte" />
+<?php echo form_close(); ?>
 
 <p><a href="<?php echo site_url('accueil') ?>">Retour à l'accueil</a><p>

@@ -10,7 +10,7 @@ class ModeleClient extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'object'; // résultats retournés sous forme d'objet(s)
  
-    protected $allowedFields = ['nom', 'prenom', 'ville', 'adresse', 'codepostal', 'telephonemobile', 'mel'];
+    protected $allowedFields = ['nom', 'prenom', 'adresse', 'codepostal', 'ville','telephonefixe','telephonemobile', 'mel','motdepasse'];
     /* champs pour lesquels insertion, et mises à jour sont autorisées
     Nota Bene : on n'autorise pas les champs en AUTOINCREMENT */
  

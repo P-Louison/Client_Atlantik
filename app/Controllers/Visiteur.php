@@ -4,6 +4,7 @@ use App\Models\ModeleProduit;
 use App\Models\ModeleAdministrateur;
 use App\Models\ModeleClient; 
 
+
 helper(['assets']); 
  
 class Visiteur extends BaseController
@@ -121,14 +122,15 @@ class Visiteur extends BaseController
             'txtAdresse' => 'required|string|max_length[30]',
             'txtCodePostal' => 'required|is_natural|max_length[10]',
             'txtVille' => 'required|string|max_length[30]',
-            'txtTelephoneFixe' => 'permit_empty|regex_match[^0[67]\.\d{2}(\.\d{2}){3}$]',
-            'txtTelephoneMobile' => 'permit_empty|regex_match[^0[67]\.\d{2}(\.\d{2}){3}$]',
+            'txtTelephoneFixe' => 'required|is_natural',
+            'txtTelephoneMobile' => 'required|is_natural',
             'txtMel' => 'required|max_length[254]|valid_email',
             'txtMotDePasse' => 'required|string|max_length[30]',            
         ];
         
         if (!$this->validate($reglesValidation)) 
         {
+            $data['TitreDeLaPage'] = 'Saisie compte incorrecte';
             /* formulaire non validé, on renvoie le formulaire */
             return view('Templates/Header')
             . view('Visiteur/vue_CreerUnCompte', $data)
@@ -139,21 +141,22 @@ class Visiteur extends BaseController
         /* INSERTION PRODUIT SAISI DANS BDD */
         
         $donneesAInserer = array(
-            'nomclient' => $this->request->getPost('txtNom'),
-            'prenomclient' => $this->request->getPost('txtPrenom'),
-            'adresseclient' => $this->request->getPost('txtAdresse'),
-            'codepostalclient' => $this->request->getPost('txtCodePostal'),
-            'villeclient' => $this->request->getPost('txtVille'),
-            'telfixeclient' => $this->request->getPost('txtTelephoneFixe'),
-            'telmobileclient' => $this->request->getPost('txtTelephoneMobile'),
-            'melclient' => $this->request->getPost('txtMel'),
-            'mdpclient' => $this->request->getPost('txtMotDePasse'),
+            'nom' => $this->request->getPost('txtNom'),
+            'prenom' => $this->request->getPost('txtPrenom'),
+            'adresse' => $this->request->getPost('txtAdresse'),
+            'codepostal' => $this->request->getPost('txtCodePostal'),
+            'ville' => $this->request->getPost('txtVille'),
+            'telephonefixe' => $this->request->getPost('txtTelephoneFixe'),
+            'telephonemobile' => $this->request->getPost('txtTelephoneMobile'),
+            'mel' => $this->request->getPost('txtMel'),
+            'motdepasse' => $this->request->getPost('txtMotDePasse'),
             
-        ); // reference, libelle, prixht, quantiteenstock, image : champs de la table 'produit'
+        ); 
         
-        $modelCompte = new ModeleCreerCompte(); //instanciation du modèle
-        $donnees['compteajoutee'] = $modelCompte->insert($donneesAInserer, false);
-        // provoque insert into sur la table mappée (produit, ici), retourne 1 (true) si ajout OK
+        
+
+        $modelClient = new ModeleClient(); 
+        $donnees['compteajoutee'] = $modelClient->insert($donneesAInserer, false);
  
         return view('Templates/Header')
             .view('Visiteur/vue_RapportCompteCreer', $donnees)
