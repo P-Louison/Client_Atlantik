@@ -1,8 +1,9 @@
 <?php
 namespace App\Controllers;
-use App\Models\ModeleProduit;
 use App\Models\ModeleAdministrateur;
 use App\Models\ModeleClient; 
+use App\Models\ModeleLiaison;
+use App\Models\ModeleTarif;
 
 
 helper(['assets']); 
@@ -153,8 +154,6 @@ class Visiteur extends BaseController
             
         ); 
         
-        
-
         $modelClient = new ModeleClient(); 
         $donnees['compteajoutee'] = $modelClient->insert($donneesAInserer, false);
  
@@ -162,5 +161,28 @@ class Visiteur extends BaseController
             .view('Visiteur/vue_RapportCompteCreer', $donnees)
             .view('Templates/Footer');
     } 
+
+    public function afficheliaison()
+    {     
+        $session = session();
+        $modLiaison = new ModeleLiaison();
+        $data['retour'] = $modLiaison->getAllLiaison();
+
+        return view('Templates/Header') 
+        . view('Visiteur/vue_AfficherLiaisonSecteur', $data)
+        . view('Templates/Footer');    
+    }
+
+    public function tarif()
+    {   
+        
+        $session = session();
+        $modTarif = new ModeleTarif();
+        $data['retour'] = $modTarif->getAllTarif();
+        
+        return view('Templates/Header') 
+        . view('Visiteur/vue_Tarif',$data)
+        . view('Templates/Footer');    
+    }
 
 }

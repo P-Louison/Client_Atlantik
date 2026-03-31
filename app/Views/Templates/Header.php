@@ -30,7 +30,7 @@
         <?php else : ?>
           <a href="<?php echo site_url('seconnecter') ?>">Se Connecter</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('creercompte') ?>">Creer un compte</a>&nbsp;&nbsp;
-          <a href="<?php echo site_url('voirlesproduitsavecpagination') ?>">visiteur</a>&nbsp;&nbsp;
+          <a href="<?php echo site_url('afficheliaison') ?>">Afficher les Liaisons</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('voircommandesproduits') ?>">visiteur</a>&nbsp;&nbsp;
         <?php endif; ?>
     
