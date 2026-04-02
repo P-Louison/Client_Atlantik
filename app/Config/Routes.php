@@ -15,7 +15,7 @@ $routes->get('accueil', 'Administrateur::accueil');
 $routes->match(['get', 'post'], 'creercompte', 'Visiteur::creercompte');
 
 $routes->get('afficheliaison', 'Visiteur::afficheliaison');
-$routes->get('tarif/(:alphanum)', 'Visiteur::tarif/$1');
+$routes->get('afficheliaison/(:alphanum)', 'Visiteur::afficheliaison/$1');
 
 $routes->match(['get', 'post'], 'seconnecter', 'Visiteur::seConnecter');
 $routes->match(['get', 'post'], 'sedeconnecter', 'Visiteur::seDeconnecter');

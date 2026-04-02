@@ -4,6 +4,7 @@ use App\Models\ModeleAdministrateur;
 use App\Models\ModeleClient; 
 use App\Models\ModeleLiaison;
 use App\Models\ModeleTarif;
+use App\Models\ModelePeriode;
 
 
 helper(['assets']); 
@@ -162,27 +163,34 @@ class Visiteur extends BaseController
             .view('Templates/Footer');
     } 
 
-    public function afficheliaison()
-    {     
-        $session = session();
-        $modLiaison = new ModeleLiaison();
-        $data['retour'] = $modLiaison->getAllLiaison();
-
-        return view('Templates/Header') 
-        . view('Visiteur/vue_AfficherLiaisonSecteur', $data)
-        . view('Templates/Footer');    
-    }
-
-    public function tarif()
+    public function afficheliaison($noliaison = null)
     {   
-        
-        $session = session();
-        $modTarif = new ModeleTarif();
-        $data['retour'] = $modTarif->getAllTarif();
-        
-        return view('Templates/Header') 
-        . view('Visiteur/vue_Tarif',$data)
-        . view('Templates/Footer');    
+        if ($noliaison === null )  
+        {
+            $session = session();
+            $modLiaison = new ModeleLiaison();
+            $data['retour'] = $modLiaison->getAllLiaison();
+
+            return view('Templates/Header') 
+            . view('Visiteur/vue_AfficherLiaisonSecteur', $data)
+            . view('Templates/Footer');  
+        }
+        else
+        {
+            $session = session();
+            $modTarif = new ModeleTarif();
+            $data['retour'] = $modTarif->getAllTarif($noliaison);
+
+            
+
+            $modPeriode = new ModelePeriode();
+            $data['periode'] = $modPeriode->getAllPeriode($noliaison);
+
+            return view('Templates/Header') 
+            . view('Visiteur/vue_Tarif',$data)
+            . view('Templates/Footer');   
+        }
+          
     }
 
 }
