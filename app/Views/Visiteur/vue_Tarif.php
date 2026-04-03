@@ -1,8 +1,7 @@
-
 <table class="table table-striped">
     <tr colspan = 3>
-        <th rowspan=2 colspan=3>Catégorie</th>
-        <th rowspan=2 colspan=3>Type</th>
+        <th rowspan=2 colspan=1>Catégorie</th>
+        <th rowspan=2 colspan=1>Type</th>
         <th rowspan=1 colspan=4>
             Période
         </th>
@@ -14,59 +13,40 @@
             endforeach 
         ?>
     </tr>
-            
 
-    
     <?php
-        $libelle_courant = "";
-        $numperiode = 0;
-        $numtype = 1;
-        foreach ($retour as $uneLigne)
-        {       
-            // Tant qu'on est sur le même nom de region, on met la première cellule (colonne) à vide
-            if ($uneLigne->LETTRECATEGORIE==$libelle_courant )
-            {  
-                
-                echo '<tr rowspan=3>' ;                                
-                    foreach ($retour as $tab) 
-                    {                         
-                        if ($tab->LETTRECATEGORIE==$libelle_courant)
+        foreach ($categorie as $uneCategorie)
+        {
+            foreach($nombre as $unNombre)
+            {
+                if ($unNombre->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE)
+                {
+                    echo '<tr>';
+                        echo '<th rowspan='.$unNombre->NOMBRE.'>';
+                        echo ''.$uneCategorie->LETTRECATEGORIE."</br>".$uneCategorie->LIBELLE.'';
+                        echo '</th>';
+                    foreach($type as $unType)
+                    {
+                        if ($unType->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE)
                         {
-                             echo '<td colspan=3>'
-                                .$uneLigne->LETTRECATEGORIE."</br>".$uneLigne->cateLibelle.
-                            '</td></tr>';
+                            if ($unType->NOTYPE != 1)
+                                echo '<tr>';
                             
-
-                            foreach($retour as $col)
+                            echo '<td>'.$unType->LETTRECATEGORIE."".$unType->NOTYPE." - ".$unType->LIBELLE.'</td>';
+                            $numperiode = 1;
+                            foreach($tarif as $unTarif)
                             {
-                                if ($col->LETTRECATEGORIE==$libelle_courant and $col->NOTYPE==$numtype)
-                                {
-                                    echo '<tr><td>'
-                                        .$col->LETTRECATEGORIE."".$col->NOTYPE." - ".$col->typeLibelle.
-                                    '</td>';
-
-                                    foreach($retour as $prix)
-                                    {
-                                        if ($prix->LETTRECATEGORIE==$libelle_courant and $prix->NOTYPE==$numtype and $prix->NOPERIODE==$numperiode)
-                                        {   
-                                            echo '<td>' .$prix->tarif. '</td>';
-                                        }
-                                        $numperiode++;
-                                    } 
-                                    echo '</tr>';
+                                if ($unTarif->NOPERIODE == $numperiode && $unTarif->LETTRECATEGORIE == $unType->LETTRECATEGORIE && $unTarif->NOTYPE == $unType->NOTYPE )
+                                { 
+                                    echo '<td>'.$unTarif->TARIF.'</td>';
+                                    $numperiode++;
                                 }
-                                $numtype++; 
-                            }     
-                                                             
-                        }
-                        
-                    }   
-                    
-                echo '</tr> ';   
-
+                            }      
+                            echo '</tr>'; 
+                        }                             
+                    }                 
+                }
             }
-            $libelle_courant = $uneLigne->LETTRECATEGORIE;
-            $numperiode =  $uneLigne->NOPERIODE;
-        }
+        }      
     ?>
 </table>

@@ -179,9 +179,16 @@ class Visiteur extends BaseController
         {
             $session = session();
             $modTarif = new ModeleTarif();
-            $data['retour'] = $modTarif->getAllTarif($noliaison);
+            $data['tarif'] = $modTarif->findAll();
 
-            
+            $modType = new ModeleTarif();
+            $data['type'] = $modType->getAllType();
+
+            $modNOmbre = new ModeleTarif();
+            $data['nombre'] = $modNOmbre->getNombreType($noliaison);
+
+            $modCategorie = new ModeleTarif();
+            $data['categorie'] = $modCategorie->getAllCategorie();
 
             $modPeriode = new ModelePeriode();
             $data['periode'] = $modPeriode->getAllPeriode($noliaison);

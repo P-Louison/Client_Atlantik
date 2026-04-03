@@ -5,27 +5,39 @@ use CodeIgniter\Model;
 class ModeleTarif extends Model
 {
     protected $table = 'tarifer'; // alias com sur la table commande
-    protected$primaryKey = 'noperiode,lettrecategorie,notype,noliaison';
+    protected $primaryKey = 'noperiode,lettrecategorie,notype,noliaison';
     protected $useAutoIncrement = false;
     protected $returnType = 'object'; // résultats retournés sous forme d'objet(s)
 
     protected$allowedFields = ['noperiode', 'lettrecategorie ', 'notype' , 'noliaison', 'tarif'];
     // numero : clé primaire, non mentionné ci-dessus, car AUTOINCREMENT
 
-    public function getAllTarif($noliaison)
+    public function getNombreType($noliaison)
     {
-        $date = date("d-m-Y");
-        $condition = ['p.datefin >=' => $date, 'tarifer.noliaison =' => $noliaison];
+        $condition = ['NOPERIODE' => 1, 'tarifer.noliaison =' => $noliaison];
 
-        return $this->join('liaison', 'liaison.NOLIAISON = tarifer.NOLIAISON', 'inner')
-        ->join('type', 'tarifer.LETTRECATEGORIE = type.LETTRECATEGORIE and tarifer.NOTYPE = type.NOTYPE',  'inner')
-        ->join('periode p', 'tarifer.NOPERIODE = p.NOPERIODE',  'inner')
-        ->join('categorie', 'tarifer.LETTRECATEGORIE = categorie.LETTRECATEGORIE',  'inner')
-        ->select('DISTINCT(p.NOPERIODE),tarif, liaison.NOLIAISON, categorie.LIBELLE as cateLibelle,type.NOTYPE, type.LIBELLE as typeLibelle, type.LETTRECATEGORIE')
+        return $this->select('DISTINCT(LETTRECATEGORIE),count(LETTRECATEGORIE) as NOMBRE')
         ->where($condition)
-        ->orderby('periode.NOPERIODE', 'ASC')
+        ->groupby('LETTRECATEGORIE')
+        ->orderby('LETTRECATEGORIE','asc')
         ->get()->getResult();
-        // ->get() : pour générer le tableau automatiquement,
-        // si non : ->get()->getResult();  (voir vue associée)
     }
+
+
+    public function getAllType()
+    {
+        return $this->join('type', 'tarifer.LETTRECATEGORIE = type.LETTRECATEGORIE and tarifer.NOTYPE = type.NOTYPE', 'inner')
+        ->select('DISTINCT(type.LETTRECATEGORIE), type.LIBELLE, type.NOTYPE')
+        ->get()->getResult();
+    }
+
+    public function getAllCategorie()
+    {
+        return $this->join('categorie', 'categorie on tarifer.LETTRECATEGORIE = categorie.LETTRECATEGORIE', 'inner')
+        ->select('DISTINCT(categorie.LETTRECATEGORIE), categorie.LIBELLE')
+        ->orderby('categorie.LETTRECATEGORIE','asc')
+        ->get()->getResult();
+    }
+
+    
 }
