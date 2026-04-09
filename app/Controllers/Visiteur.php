@@ -5,6 +5,7 @@ use App\Models\ModeleClient;
 use App\Models\ModeleLiaison;
 use App\Models\ModeleTarif;
 use App\Models\ModelePeriode;
+use App\Models\ModeleSecteur;
 
 
 helper(['assets']); 
@@ -205,12 +206,34 @@ class Visiteur extends BaseController
           
     }
 
-    public function reservation()
-    {   
-        return view('Templates/Header') 
-            . view('Visiteur/vue_Reservation')
+    public function reservation($nosecteur = null)
+    { 
+        if ($nosecteur === null )  
+        {
+            $session = session();
+
+            $modSecteur = new ModeleSecteur();
+            $data['secteur'] = $modSecteur->findAll();
+
+            return view('Templates/Header') 
+            . view('Visiteur/vue_Reservation', $data)
             . view('Templates/Footer');  
-          
+        }
+        else
+        {
+            $session = session();
+            $data['nosecteur'] = $nosecteur;
+
+            $modSecteur = new ModeleSecteur();
+            $data['secteur'] = $modSecteur->findAll(); 
+            
+            $modSecteurLiaison = new ModeleSecteur();
+            $data['secteurLiaison'] = $modSecteur->getSecteurLiaison($nosecteur); 
+
+            return view('Templates/Header') 
+            . view('Visiteur/vue_ResaParSecteur', $data)
+            . view('Templates/Footer');  
+        }          
     }
 
 }

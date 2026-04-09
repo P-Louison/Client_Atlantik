@@ -21,5 +21,6 @@ $routes->match(['get', 'post'], 'seconnecter', 'Visiteur::seConnecter');
 $routes->match(['get', 'post'], 'sedeconnecter', 'Visiteur::seDeconnecter');
 
 $routes->match(['get', 'post'], 'reservation', 'Visiteur::reservation');
+$routes->match(['get', 'post'], 'reservation/(:alphanum)', 'Visiteur::reservation/$1');
 
 
