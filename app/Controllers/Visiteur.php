@@ -169,7 +169,7 @@ class Visiteur extends BaseController
         {
             $session = session();
             $modLiaison = new ModeleLiaison();
-            $data['retour'] = $modLiaison->getAllLiaison();
+            $data['retour'] = $modLiaison->getLiaison();
 
             return view('Templates/Header') 
             . view('Visiteur/vue_AfficherLiaisonSecteur', $data)
@@ -178,6 +178,11 @@ class Visiteur extends BaseController
         else
         {
             $session = session();
+
+            $modLiaison = new ModeleLiaison();
+            $data['liaison'] = $modLiaison->getLiaisonPort($noliaison);
+            
+
             $modTarif = new ModeleTarif();
             $data['tarif'] = $modTarif->findAll();
 
@@ -197,6 +202,14 @@ class Visiteur extends BaseController
             . view('Visiteur/vue_Tarif',$data)
             . view('Templates/Footer');   
         }
+          
+    }
+
+    public function reservation()
+    {   
+        return view('Templates/Header') 
+            . view('Visiteur/vue_Reservation')
+            . view('Templates/Footer');  
           
     }
 

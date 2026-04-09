@@ -12,7 +12,7 @@ class ModeleLiaison extends Model
   protected$allowedFields = ['noliaison', 'noport_depart ', 'noport_arrivee' , 'distance'];
   // numero : clé primaire, non mentionné ci-dessus, car AUTOINCREMENT
  
-  public function getAllLiaison()
+  public function getLiaison()
   {
     /* REQUETE SQL
     select numero, numeroclient, datecommande, referenceproduit, quantitecommandee, libelle, prixht
@@ -32,5 +32,17 @@ class ModeleLiaison extends Model
       ->get()->getResult();
       // ->get() : pour générer le tableau automatiquement,
       // si non : ->get()->getResult();  (voir vue associée)
+  }
+
+  public function getLiaisonPort($noliaison)
+  {
+    $condition = ['liaison.noliaison =' => $noliaison]; 
+
+    return $this->join('port pa', 'liaison.NOPORT_ARRIVEE = pa.NOPORT',  'inner')
+    ->join('port hugo', 'liaison.NOPORT_DEPART = hugo.NOPORT',  'inner')
+    ->select('liaison.NOLIAISON as numLiaison, hugo.NOM as portDepart, pa.NOM as portArrive')
+    ->where($condition)
+    ->get()->getResult();
+      
   }
 }

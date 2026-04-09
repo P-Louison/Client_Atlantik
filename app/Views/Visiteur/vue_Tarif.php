@@ -1,3 +1,10 @@
+
+<h3>
+    <?php foreach ($liaison as $uneLigne) :
+        echo 'Liaison n°'.$uneLigne->numLiaison.' : '.$uneLigne->portDepart.' - '.$uneLigne->portArrive.'';
+    endforeach  ?> 
+</h3>
+
 <table class="table table-striped">
     <tr colspan = 3>
         <th rowspan=2 colspan=1>Catégorie</th>

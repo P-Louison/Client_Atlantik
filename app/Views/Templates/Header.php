@@ -28,10 +28,12 @@
         <?php endif;  ?>
 
         <?php else : ?>
+          <a href="<?php echo site_url('accueil') ?>">Accueil</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('seconnecter') ?>">Se Connecter</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('creercompte') ?>">Creer un compte</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('afficheliaison') ?>">Afficher les Liaisons</a>&nbsp;&nbsp;
-          <a href="<?php echo site_url('voircommandesproduits') ?>">visiteur</a>&nbsp;&nbsp;
+          <a href="<?php echo site_url('reservation') ?>">Réservation</a>&nbsp;&nbsp;
+          
         <?php endif; ?>
     
 
