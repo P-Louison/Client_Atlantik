@@ -6,6 +6,7 @@ use App\Models\ModeleLiaison;
 use App\Models\ModeleTarif;
 use App\Models\ModelePeriode;
 use App\Models\ModeleSecteur;
+use App\Models\ModeleTraverse;
 
 
 helper(['assets']); 
@@ -208,6 +209,8 @@ class Visiteur extends BaseController
 
     public function reservation($nosecteur = null)
     { 
+        
+
         if ($nosecteur === null )  
         {
             $session = session();
@@ -220,12 +223,28 @@ class Visiteur extends BaseController
             . view('Templates/Footer');  
         }
         else
-        {
+        {   
+            helper(['form']);
             $session = session();
             $data['nosecteur'] = $nosecteur;
 
             $modSecteur = new ModeleSecteur();
             $data['secteur'] = $modSecteur->findAll(); 
+
+            $modTraverse = new ModeleTraverse();
+            $data['traverse'] = $modTraverse->getInfo();
+
+            $modTraverse = new ModeleTraverse();
+            $data['traverse'] = $modTraverse->getCapaciteMax();
+
+            $modTraverse = new ModeleTraverse();
+            $data['traverse'] = $modTraverse->getInfo();
+
+            $modCategorie = new ModeleTarif();
+            $data['categorie'] = $modCategorie->getAllCategorie();
+
+            $modLiaison = new ModeleLiaison();
+            $data['port'] = $modLiaison->getLiaisonPort($this->request->getPost('liaison'));
             
             $modSecteurLiaison = new ModeleSecteur();
             $data['secteurLiaison'] = $modSecteur->getSecteurLiaison($nosecteur); 
