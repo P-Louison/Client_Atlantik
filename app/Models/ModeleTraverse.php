@@ -12,37 +12,36 @@ class ModeleTraverse extends Model
     protected$allowedFields = ['notraversee', 'noliaison ', 'nobateau' , 'dateheuredepart', 'dateheurearrive'];
     // numero : clé primaire, non mentionné ci-dessus, car AUTOINCREMENT
 
-    public function getInfo()
+    public function getInfo($numliaison, $date)
     {
-        
+        $condition = ['DATEHEUREDEPART LIKE' => $date . '%', 'traversee.noliaison =' => $numliaison];
+
         return $this->join('bateau', 'traversee.NOBATEAU = bateau.NOBATEAU', 'inner')
       
         ->select('NOTRAVERSEE,traversee.NOBATEAU, NOLIAISON,bateau.NOM as NOM,DATE_FORMAT(DATEHEUREDEPART, "%d/%m/%Y") as DATEDEPART,DATE_FORMAT(DATEHEUREARRIVEE, "%d/%m/%Y") as DATEARRIVEE,DATE_FORMAT(DATEHEUREDEPART, "%H:%i") as HEUREDEPART, DATE_FORMAT(DATEHEUREARRIVEE, "%H:%i") as HEUREARRIVEE')
-        
+        ->where($condition)
         ->get()->getResult();
         // ->get() : pour générer le tableau automatiquement,
         // si non : ->get()->getResult();  (voir vue associée)
     }   
 
-    public function getCapaciteMax($numtraverse, $lettre)
+    public function getCapaciteMax()
     {
-        $condition = ['NOTRAVERSE =' => $numtraverse, 'contenir.LETTRECATEGORIE =' => $lettre];
-
-        return $this->join('contenir c', 'contenir.NOBATEAU = traversee.NOBATEAU',  'inner')
-        ->select('capacitemax')
+        return $this->join('contenir c', 'c.NOBATEAU = traversee.NOBATEAU',  'inner')
+        ->select('DISTINCT(c.NOBATEAU),c.LETTRECATEGORIE,c.CAPACITEMAX')
         ->get()->getResult();
         // ->get() : pour générer le tableau automatiquement,
         // si non : ->get()->getResult();  (voir vue associée)
     }  
 
-    public function getQuantite($numtraverse, $lettre)
+    public function getQuantite()
     {
-        $condition = ['NOTRAVERSE =' => $numtraverse, 'e.LETTRECATEGORIE =' => $lettre];    
+       
 
-        return $this->join('reservation r', 'r.NOTRAVERSEE = t.NOTRAVERSEE ',  'inner')
+        return $this->join('reservation r', 'r.NOTRAVERSEE = traversee.NOTRAVERSEE ',  'inner')
         ->join('enregistrer e', 'r.NORESERVATION = e.NORESERVATION ',  'inner')
-        ->select('sum(QUANTITERESERVEE) as resultat')
-        ->where($condition)
+        ->select('traversee.NOTRAVERSEE, e.LETTRECATEGORIE, e.QUANTITERESERVEE')
+
         ->get()->getResult();
         // ->get() : pour générer le tableau automatiquement,
         // si non : ->get()->getResult();  (voir vue associée)

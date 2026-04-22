@@ -49,21 +49,31 @@
                 }
                 else 
                 {
-                    if (($_POST['date']) === "")
+                    $dateactuel = date('Y/m/d');
+                    $date1 = new DateTime($dateactuel);
+                    $date2 = new DateTime($_POST['date']);
+                    if ((($_POST['date']) == "") || ($date2 < $date1))
                     {
                         echo 'merci de bien selectionner les informations !';
+                        echo '<br>';
+                        echo 'Les dates inférieurs à la date du jour ne sont pas prise en compte !';
                     }
                     else
                     { 
-                        foreach ($port as $uneLigne) :
+                        if ($traverse == null)
+                        {
+                            echo 'PAS DE TRAVERSEE POUR LA DATE CHOISIE';
+                        }
+                        else
+                        {
+                            foreach ($port as $uneLigne) :
                             echo ''.$uneLigne->portDepart.' - '.$uneLigne->portArrive.'';
-                        endforeach  ?> 
+                            endforeach  ?> 
 
-                        <p> Traversées pour le <?php echo ''.$_POST['date'].''; ?> Sélectionner la traversée souhaitée </p>
-                        <table class="table table-striped">
+                            <p> Traversées pour le <?php echo ''.$_POST['date'].''; ?> Sélectionner la traversée souhaitée </p>
+                            <table class="table table-striped">
                             <?php
                     
-
                             echo '<tr colspan = 2>';
                                 echo '<th>N°</th> <th>Heure</th> <th>Bateau</th>';
                             
@@ -79,30 +89,36 @@
                             {
                                 echo '<tr>';
                                 echo '<td>'.$uneTraverse->NOTRAVERSEE.'</td><td>'.$uneTraverse->HEUREDEPART.'</td><td>'.$uneTraverse->NOM.'</td>';
-
+                            
                                 foreach ($categorie as $uneCategorie)
                                 {
-                                    $modTraverse = new ModeleTraverse();
-                                    $capacite = $modTraverse->getQuantite($uneTraverse->NOBATEAU, $uneCategorie->LETTRECATEGORIE);
+                                    foreach ($capacitemax as $uneCapaMax)
+                                    {
+                                        if ($uneCapaMax->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE && $uneCapaMax->NOBATEAU == $uneTraverse->NOBATEAU) 
+                                        {
+                                            $capa = (int)$uneCapaMax->CAPACITEMAX;
+                                            break;
+                                        }
+                                    }
+                                    $quantite = 0;
+                                    foreach ($quantiteenregistrer as $uneQuantEnr)
+                                    {
+                                        if ($uneQuantEnr->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE && $uneQuantEnr->NOTRAVERSEE == $uneTraverse->NOTRAVERSEE) 
+                                        {
+                                            $quantite += (int)$uneQuantEnr->QUANTITERESERVEE ;
+                                        }
+                                    }
+                                    $placerestante = $capa - $quantite;
 
-                                    $modTraverse = new ModeleTraverse();
-                                    $quantite = $modTraverse->getCapaciteMax($uneTraverse->NOBATEAU, $uneCategorie->LETTRECATEGORIE);
-
-                                    echo '<td>'.$capacite - $quantite.'</td>';
+                                    echo '<td>'.$placerestante.'</td>';
                                 }
-
                                 echo '</tr>';
                             }
-
-
-
-
-                            ?>
+                        }
+                        ?>
                         </table>
-                        <?php
-                        
-                    }
-                    
+                        <?php  
+                    }     
                 }    
             ?>
         </div>

@@ -232,13 +232,13 @@ class Visiteur extends BaseController
             $data['secteur'] = $modSecteur->findAll(); 
 
             $modTraverse = new ModeleTraverse();
-            $data['traverse'] = $modTraverse->getInfo();
+            $data['traverse'] = $modTraverse->getInfo($this->request->getPost('liaison'),$this->request->getPost('date'));
 
             $modTraverse = new ModeleTraverse();
-            $data['traverse'] = $modTraverse->getCapaciteMax();
+            $data['capacitemax'] = $modTraverse->getCapaciteMax();
 
             $modTraverse = new ModeleTraverse();
-            $data['traverse'] = $modTraverse->getInfo();
+            $data['quantiteenregistrer'] = $modTraverse->getQuantite();
 
             $modCategorie = new ModeleTarif();
             $data['categorie'] = $modCategorie->getAllCategorie();
