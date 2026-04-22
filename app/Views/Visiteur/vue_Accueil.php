@@ -16,7 +16,7 @@
                 <img src="./assets/images/PortMaria.jpg" class="d-block mx-auto" >
                 <div class="carousel-caption">
                 <h3>Quiberon</h3>
-                <p>la meilleure ville !!!</p>
+                <p>LE caillou</p>
                 </div>
             </div>
             <div class="carousel-item">
