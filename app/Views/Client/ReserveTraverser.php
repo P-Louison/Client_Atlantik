@@ -1,0 +1,40 @@
+<h4>Pseudo-Panier</h4>
+<form action='' method='post'>
+<table border=1>
+    <tr>
+    <th>Libellé</th>
+    <th>Quantité</th>
+    </tr>
+    <tr>
+    <td>
+        <input type="hidden" name="jeux[0][Reference]" value="J124" />
+        Animal Crossing
+    </td>
+    <td>
+        <input type="text" name="jeux[0][Quantite]" value="1" />
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+        <input type="hidden" name="jeux[1][Reference]" value="J045" />
+        The Legend of Zelda
+    </td>
+    <td>
+        <input type="text" name="jeux[1][Quantite]" value="1" />
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+        <input type="hidden" name="jeux[2][Reference]" value="J007" />
+        Minecraft
+    </td>
+    <td>
+        <input type="text" name="jeux[2][Quantite]" value="1" />
+    </td>
+    </tr>
+</table>
+<BR>
+<input type="submit" value="Valider panier">
+</form>

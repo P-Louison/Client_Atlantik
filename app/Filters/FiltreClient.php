@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
  
-class FiltreSuperAdministrateur implements FilterInterface
+class FiltreClient implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,8 +25,7 @@ class FiltreSuperAdministrateur implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get('profil')!='Administrateur') {
-            /* si profil n'est pas SuperAdministrateur on redirige vers le formulaire de connexion */
+        if(session()->get('profil')!='Client') {
             return redirect()->to(base_url('seconnecter'));
           }
     }

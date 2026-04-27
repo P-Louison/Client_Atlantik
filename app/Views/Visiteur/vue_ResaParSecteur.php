@@ -88,7 +88,7 @@
                             foreach ($traverse as $uneTraverse)
                             {
                                 echo '<tr>';
-                                echo '<td>'.$uneTraverse->NOTRAVERSEE.'</td><td>'.$uneTraverse->HEUREDEPART.'</td><td>'.$uneTraverse->NOM.'</td>';
+                                echo '<td>'.anchor('reservetraverse/'.$uneTraverse->NOTRAVERSEE,$uneTraverse->NOTRAVERSEE).'</td><td>'.$uneTraverse->HEUREDEPART.'</td><td>'.$uneTraverse->NOM.'</td>';
                             
                                 foreach ($categorie as $uneCategorie)
                                 {
