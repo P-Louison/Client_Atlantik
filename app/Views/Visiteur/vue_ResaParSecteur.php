@@ -60,7 +60,7 @@
                     }
                     else
                     { 
-                        if ($traverse == null)
+                        if ($resultat == null)
                         {
                             echo 'PAS DE TRAVERSEE POUR LA DATE CHOISIE';
                         }
@@ -85,35 +85,18 @@
                                     }
                             echo '</tr>';
                             
-                            foreach ($traverse as $uneTraverse)
+                            foreach($resultat as $LeResultat)
                             {
-                                echo '<tr>';
-                                echo '<td>'.anchor('reservetraverse/'.$uneTraverse->NOTRAVERSEE,$uneTraverse->NOTRAVERSEE).'</td><td>'.$uneTraverse->HEUREDEPART.'</td><td>'.$uneTraverse->NOM.'</td>';
-                            
-                                foreach ($categorie as $uneCategorie)
-                                {
-                                    foreach ($capacitemax as $uneCapaMax)
-                                    {
-                                        if ($uneCapaMax->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE && $uneCapaMax->NOBATEAU == $uneTraverse->NOBATEAU) 
-                                        {
-                                            $capa = (int)$uneCapaMax->CAPACITEMAX;
-                                            break;
-                                        }
-                                    }
-                                    $quantite = 0;
-                                    foreach ($quantiteenregistrer as $uneQuantEnr)
-                                    {
-                                        if ($uneQuantEnr->LETTRECATEGORIE == $uneCategorie->LETTRECATEGORIE && $uneQuantEnr->NOTRAVERSEE == $uneTraverse->NOTRAVERSEE) 
-                                        {
-                                            $quantite += (int)$uneQuantEnr->QUANTITERESERVEE ;
-                                        }
-                                    }
-                                    $placerestante = $capa - $quantite;
 
-                                    echo '<td>'.$placerestante.'</td>';
-                                }
-                                echo '</tr>';
+                                foreach($LeResultat as $unResultat)
+                                {
+                                    
+                                    echo '<tr>';
+                                    echo '<td>'.anchor('reservetraverse/'.$unResultat->NOTRAVERSEE,$unResultat->NOTRAVERSEE).'</td><td>'.$unResultat->HEURE.'</td><td>'.$unResultat->BATEAU.'</td><td>'.$unResultat->PLACEA.'</td><td>'.$unResultat->PLACEB.'</td><td>'.$unResultat->PLACEC.'</td>';
+                                    echo '</tr>'; 
+                                }         
                             }
+                                
                         }
                         ?>
                         </table>

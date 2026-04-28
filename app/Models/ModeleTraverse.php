@@ -25,23 +25,27 @@ class ModeleTraverse extends Model
         // si non : ->get()->getResult();  (voir vue associée)
     }   
 
-    public function getCapaciteMax()
+    public function getCapaciteMax($lettre, $numtraversee)
     {
+        $condition = ['c.LETTRECATEGORIE = ' => $lettre , 'traversee.NOTRAVERSEE =' => $numtraversee];
+
         return $this->join('contenir c', 'c.NOBATEAU = traversee.NOBATEAU',  'inner')
-        ->select('DISTINCT(c.NOBATEAU),c.LETTRECATEGORIE,c.CAPACITEMAX')
+        ->join('categorie ca', 'c.LETTRECATEGORIE = ca.LETTRECATEGORIE',  'inner')
+        ->select('DISTINCT(c.NOBATEAU), traversee.NOTRAVERSEE, c.CAPACITEMAX as capamax, c.LETTRECATEGORIE')
+        ->where($condition)
         ->get()->getResult();
         // ->get() : pour générer le tableau automatiquement,
         // si non : ->get()->getResult();  (voir vue associée)
     }  
 
-    public function getQuantite()
+    public function getQuantite($lettre, $numtraversee)
     {
-       
+        $condition = ['e.LETTRECATEGORIE = ' => $lettre , 'traversee.NOTRAVERSEE =' => $numtraversee];
 
         return $this->join('reservation r', 'r.NOTRAVERSEE = traversee.NOTRAVERSEE ',  'inner')
         ->join('enregistrer e', 'r.NORESERVATION = e.NORESERVATION ',  'inner')
-        ->select('traversee.NOTRAVERSEE, e.LETTRECATEGORIE, e.QUANTITERESERVEE')
-
+        ->select('traversee.NOTRAVERSEE, SUM(e.QUANTITERESERVEE) as quantite,e.LETTRECATEGORIE')
+        ->where($condition)
         ->get()->getResult();
         // ->get() : pour générer le tableau automatiquement,
         // si non : ->get()->getResult();  (voir vue associée)

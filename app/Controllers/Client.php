@@ -15,11 +15,13 @@ class Client extends BaseController
 {
     public function reservetraverse($noreservation = null)
     {
+
+        $modCategorie = new ModeleTarif();
+        $data['categorie'] = $modCategorie->getAllCategorie();
         
         return view('Templates/Header') 
         . view('Client/ReserveTraverser')
         . view('Templates/Footer'); 
-        
-        
+                
     }
 }   

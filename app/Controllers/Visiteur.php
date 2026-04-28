@@ -228,26 +228,52 @@ class Visiteur extends BaseController
             $session = session();
             $data['nosecteur'] = $nosecteur;
 
-            $modSecteur = new ModeleSecteur();
-            $data['secteur'] = $modSecteur->findAll(); 
-
-            $modTraverse = new ModeleTraverse();
-            $data['traverse'] = $modTraverse->getInfo($this->request->getPost('liaison'),$this->request->getPost('date'));
-
-            $modTraverse = new ModeleTraverse();
-            $data['capacitemax'] = $modTraverse->getCapaciteMax();
-
-            $modTraverse = new ModeleTraverse();
-            $data['quantiteenregistrer'] = $modTraverse->getQuantite();
-
-            $modCategorie = new ModeleTarif();
-            $data['categorie'] = $modCategorie->getAllCategorie();
-
             $modLiaison = new ModeleLiaison();
             $data['port'] = $modLiaison->getLiaisonPort($this->request->getPost('liaison'));
             
             $modSecteurLiaison = new ModeleSecteur();
-            $data['secteurLiaison'] = $modSecteur->getSecteurLiaison($nosecteur); 
+            $data['secteurLiaison'] = $modSecteurLiaison->getSecteurLiaison($nosecteur); 
+
+            $modSecteur = new ModeleSecteur();
+            $data['secteur'] = $modSecteur->findAll(); 
+
+            $modTraverse = new ModeleTraverse();
+            $traversee = $modTraverse->getInfo($this->request->getPost('liaison'),$this->request->getPost('date'));
+            
+            $modCategorie = new ModeleTarif();
+            $categorie = $modCategorie->getAllCategorie();
+            $data['categorie'] = $categorie;
+
+            foreach ($traversee as $uneTraversee)
+            {
+                $dispo = array();
+
+                $dispo['NOTRAVERSEE'] = $uneTraversee->NOTRAVERSEE;
+                $dispo['HEURE'] = $uneTraversee->NOTRAVERSEE;
+                $dispo['BATEAU'] = $uneTraversee->NOM;
+
+                
+                foreach ($categorie as $uneCategorie)
+                {
+                    $capa = $modTraverse->getCapaciteMax($uneCategorie->LETTRECATEGORIE, $uneTraversee->NOTRAVERSEE);
+                    $quantitereserv = $modTraverse->getQuantite($uneCategorie->LETTRECATEGORIE, $uneTraversee->NOTRAVERSEE);
+                    
+                    foreach ($capa as $uneCapa)
+                    {
+                        $capacitemax = $uneCapa->capamax;
+                    }
+
+                    foreach ($quantitereserv as $unequantitereserv)
+                    {
+                        $quantiteEnr = $unequantitereserv->quantite;
+                    }
+
+                    $libelle = 'PLACE'.$uneCategorie->LETTRECATEGORIE.''; 
+                    $dispo[$libelle] =  (int)$capacitemax - (int)$quantiteEnr;         
+                }            
+                $tab[$uneTraversee->NOTRAVERSEE] = $dispo;            
+            }
+            $data['resultat'] = $tab;
 
             return view('Templates/Header') 
             . view('Visiteur/vue_ResaParSecteur', $data)
