@@ -2,38 +2,27 @@
 <form action='' method='post'>
 <table border=1>
     <tr>
-    <th>Libellé</th>
-    <th>Quantité</th>
+        <th>       </th>
+        <th>Tarif en €</th>
+        <th>Quantité</th>
     </tr>
-    <tr>
-    <td>
-        <input type="hidden" name="categorie[0][Reference]" value="J124" />
-        Animal Crossing
-    </td>
-    <td>
-        <input type="text" name="categorie[0][Quantite]" value="1" />
-    </td>
-    </tr>
+    <?php
 
-    <tr>
-    <td>
-        <input type="hidden" name="categorie[1][Reference]" value="J045" />
-        The Legend of Zelda
-    </td>
-    <td>
-        <input type="text" name="categorie[1][Quantite]" value="1" />
-    </td>
-    </tr>
+    foreach($type as $unType)
+    {
+        echo '<tr>';
+            echo '<td>';
+                echo '<input type="hidden" name="categorie[2][libelle]" />';
+                echo ''.$unType->LIBELLE.'';
+            echo '</td>';
+            echo '<td>';
+                echo '<input type="text" name="categorie[2][Quantite]" value="" />';
+            echo '</td>';
+        echo '</tr>';
+    }
+    ?>
 
-    <tr>
-    <td>
-        <input type="hidden" name="categorie[2][Reference]" value="J007" />
-        Minecraft
-    </td>
-    <td>
-        <input type="text" name="categorie[2][Quantite]" value="1" />
-    </td>
-    </tr>
+    
 </table>
 <BR>
 <input type="submit" value="Valider panier">
