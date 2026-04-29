@@ -85,16 +85,13 @@
                                     }
                             echo '</tr>';
                             
-                            foreach($resultat as $LeResultat)
+                            foreach($resultat as $unResultat)
                             {
 
-                                foreach($LeResultat as $unResultat)
-                                {
-                                    
-                                    echo '<tr>';
-                                    echo '<td>'.anchor('reservetraverse/'.$unResultat->NOTRAVERSEE,$unResultat->NOTRAVERSEE).'</td><td>'.$unResultat->HEURE.'</td><td>'.$unResultat->BATEAU.'</td><td>'.$unResultat->PLACEA.'</td><td>'.$unResultat->PLACEB.'</td><td>'.$unResultat->PLACEC.'</td>';
-                                    echo '</tr>'; 
-                                }         
+                                echo '<tr>';
+                                echo '<td>'.anchor('reservetraverse/'.$unResultat['NOTRAVERSEE'],$unResultat['NOTRAVERSEE']).'</td><td>'.$unResultat['HEURE'].'</td><td>'.$unResultat['BATEAU'].'</td><td>'.$unResultat['PLACEA'].'</td><td>'.$unResultat['PLACEB'].'</td><td>'.$unResultat['PLACEC'].'</td>';
+                                echo '</tr>'; 
+                                         
                             }
                                 
                         }

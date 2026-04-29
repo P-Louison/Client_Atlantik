@@ -244,12 +244,13 @@ class Visiteur extends BaseController
             $categorie = $modCategorie->getAllCategorie();
             $data['categorie'] = $categorie;
 
+            $tab = array();
             foreach ($traversee as $uneTraversee)
             {
                 $dispo = array();
 
-                $dispo['NOTRAVERSEE'] = $uneTraversee->NOTRAVERSEE;
-                $dispo['HEURE'] = $uneTraversee->NOTRAVERSEE;
+                $dispo['NOTRAVERSEE'] = ''.$uneTraversee->NOTRAVERSEE.'';
+                $dispo['HEURE'] = $uneTraversee->HEUREDEPART;
                 $dispo['BATEAU'] = $uneTraversee->NOM;
 
                 
@@ -269,7 +270,7 @@ class Visiteur extends BaseController
                     }
 
                     $libelle = 'PLACE'.$uneCategorie->LETTRECATEGORIE.''; 
-                    $dispo[$libelle] =  (int)$capacitemax - (int)$quantiteEnr;         
+                    $dispo[$libelle] =  (string)((int)$capacitemax - (int)$quantiteEnr);         
                 }            
                 $tab[$uneTraversee->NOTRAVERSEE] = $dispo;            
             }
