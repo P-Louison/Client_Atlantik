@@ -17,13 +17,17 @@ class Client extends BaseController
     {
         $session = session();
         $modCategorie = new ModeleTarif();
-        $data['tarif'] = $modCategorie->getTypeTarif($session->get('date'), $session->get('noliaison'));
-
-        var_dump($data['tarif']);
-        die();
+        $date = $modCategorie->getNoPeriode($session->get('date'));
+        foreach($date as $uneDate)
+        {
+            $periode = $uneDate->PERIODE;
+        }
+        $data['tarif'] = $modCategorie->getTypeTarif($periode, $session->get('noliaison'));
         
+        $session->set('tarif',$data['tarif']);
+
         return view('Templates/Header') 
-        . view('Client/ReserveTraverser')
+        . view('Client/ReserveTraverser', $data)
         . view('Templates/Footer'); 
                 
     }

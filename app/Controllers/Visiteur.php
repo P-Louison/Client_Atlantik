@@ -67,12 +67,16 @@ class Visiteur extends BaseController
             $modClient = new ModeleClient(); // instanciation modèle
             $condition = ['mel'=>$Identifiant,'motdepasse'=>$MdP];
             $ClientRetourne = $modClient->where($condition)->first();
-          
-
+            
             if ($ClientRetourne != null) {
                 /* identifiant et mot de passe OK : identifiant et profil sont stockés en session */
                 $session->set('identifiant', $ClientRetourne->MEL);
                 $session->set('profil', "client");
+                $session->set('nomClient', $ClientRetourne->NOM);
+                $session->set('prenomClient', $ClientRetourne->PRENOM);
+                $session->set('adresseClient', $ClientRetourne->ADRESSE);
+                $session->set('cpClient', $ClientRetourne->CODEPOSTAL);
+                $session->set('villeClient', $ClientRetourne->VILLE);
                 
                 $data['Identifiant'] = $Identifiant;
                 echo view('Templates/Header', $data);
@@ -279,6 +283,7 @@ class Visiteur extends BaseController
                 $tab[$uneTraversee->NOTRAVERSEE] = $dispo;            
             }
             $data['resultat'] = $tab;
+            
 
             return view('Templates/Header') 
             . view('Visiteur/vue_ResaParSecteur', $data)

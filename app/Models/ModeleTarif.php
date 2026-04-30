@@ -41,7 +41,7 @@ class ModeleTarif extends Model
 
     public function getTypeTarif($date,$noliaison)
     {
-        $condition = $condition = ['tarifer.NOPERIODE' => $this->getNoPeriode($date), 'tarifer.noliaison =' => $noliaison];
+        $condition = $condition = ['tarifer.NOPERIODE' => $date, 'tarifer.noliaison =' => $noliaison];
 
         return $this->join('type t', 'tarifer.LETTRECATEGORIE = t.LETTRECATEGORIE and tarifer.NOTYPE = t.NOTYPE', 'inner')
         ->join('periode p','tarifer.NOPERIODE = p.NOPERIODE','inner')
@@ -55,7 +55,7 @@ class ModeleTarif extends Model
         $condition = ['p.DATEDEBUT <=' => $date, 'p.DATEFIN >=' => $date];
 
         return $this->join('periode p', 'tarifer.NOPERIODE = p.NOPERIODE', 'inner')
-        ->select('DISTINCT(p.NOPERIODE)')
+        ->select('DISTINCT(p.NOPERIODE) as PERIODE')
         ->where($condition)
         ->get()->getResult();
     }

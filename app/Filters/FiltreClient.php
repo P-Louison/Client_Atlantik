@@ -28,6 +28,10 @@ class FiltreClient implements FilterInterface
         if(session()->get('profil')!='Client') {
             return redirect()->to(base_url('seconnecter'));
           }
+        else
+        {
+            return redirect()->to(base_url('reservetraverse'));
+        }
     }
  
     /**
@@ -44,7 +48,6 @@ class FiltreClient implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        /* LES METHODES before() et after() doivent être présentent dans notre classe filtre
-        mais il n'est pas nécessaire qu'elles soient 'codées' */
+        
     }
 }
