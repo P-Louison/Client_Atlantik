@@ -15,9 +15,12 @@ class Client extends BaseController
 {
     public function reservetraverse($noreservation = null)
     {
-
+        $session = session();
         $modCategorie = new ModeleTarif();
-        $data['categorie'] = $modCategorie->getAllCategorie();
+        $data['tarif'] = $modCategorie->getTypeTarif($session->get('date'), $session->get('noliaison'));
+
+        var_dump($data['tarif']);
+        die();
         
         return view('Templates/Header') 
         . view('Client/ReserveTraverser')

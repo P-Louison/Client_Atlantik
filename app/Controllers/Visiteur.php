@@ -240,6 +240,10 @@ class Visiteur extends BaseController
             $modTraverse = new ModeleTraverse();
             $traversee = $modTraverse->getInfo($this->request->getPost('liaison'),$this->request->getPost('date'));
             
+            
+            $session->set('noliaison',$this->request->getPost('liaison'));
+            $session->set('date',$this->request->getPost('date'));
+
             $modCategorie = new ModeleTarif();
             $categorie = $modCategorie->getAllCategorie();
             $data['categorie'] = $categorie;
