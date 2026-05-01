@@ -24,7 +24,8 @@
 
         <?php if ($session->get('profil') == 'client') : ?>
           <a href="<?php echo site_url('accueil') ?>" class="btn btn-outline-warning">Accueil</a>&nbsp;&nbsp;
-          <a href="<?php echo site_url('reservetraverse') ?>" class="btn btn-outline-warning">Réserver une traversée</a>&nbsp;&nbsp;
+          <a href="<?php echo site_url('afficheliaison') ?>" class="btn btn-outline-warning">Afficher les Liaisons</a>&nbsp;&nbsp;
+          <a href="<?php echo site_url('reservation') ?>" class="btn btn-outline-warning">Réserver une traversée</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('voircommandesproduits') ?>" class="btn btn-outline-warning">client</a>&nbsp;&nbsp;
         <?php endif;  ?>
 

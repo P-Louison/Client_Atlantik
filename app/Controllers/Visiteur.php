@@ -60,7 +60,7 @@ class Visiteur extends BaseController
             
             $data['Identifiant'] = $Identifiant;
             echo view('Templates/Header', $data);
-            echo view('Visiteur/vue_ConnexionReussie');
+            echo view('Visiteur/vue_Accueil');
         } 
         else{
             /* on va chercher dans la BDD l'utilisateur correspondant aux id et mot de passe saisis */
@@ -80,7 +80,7 @@ class Visiteur extends BaseController
                 
                 $data['Identifiant'] = $Identifiant;
                 echo view('Templates/Header', $data);
-                echo view('Visiteur/vue_ConnexionReussie');
+                echo view('Visiteur/vue_Accueil');
             } 
             else {
                 /* identifiant et/ou mot de passe OK : on renvoie le formulaire  */
@@ -95,8 +95,8 @@ class Visiteur extends BaseController
     public function seDeconnecter()
     {
         session()->destroy();
-        return redirect()->to('seconnecter');
-    } // Fin seDeconnecter
+        return redirect()->to('accueil');
+    }
 
     public function accueil()
     {     
@@ -283,6 +283,7 @@ class Visiteur extends BaseController
                 $tab[$uneTraversee->NOTRAVERSEE] = $dispo;            
             }
             $data['resultat'] = $tab;
+            $session->set('resultat', $data['resultat']);
             
 
             return view('Templates/Header') 

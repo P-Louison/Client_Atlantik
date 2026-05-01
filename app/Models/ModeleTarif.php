@@ -45,7 +45,7 @@ class ModeleTarif extends Model
 
         return $this->join('type t', 'tarifer.LETTRECATEGORIE = t.LETTRECATEGORIE and tarifer.NOTYPE = t.NOTYPE', 'inner')
         ->join('periode p','tarifer.NOPERIODE = p.NOPERIODE','inner')
-        ->select('t.LIBELLE, tarifer.TARIF')
+        ->select('t.LIBELLE, tarifer.TARIF, tarifer.LETTRECATEGORIE, t.NOTYPE')
         ->where($condition)
         ->get()->getResult();
     }
