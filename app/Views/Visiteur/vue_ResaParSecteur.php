@@ -43,6 +43,7 @@
 
         <div class='row'>
             <?php
+            $session = session();
                 if(!isset($_POST['btnAfficher'])) 
                 {
                     echo 'veuillez selectionner une liaison ainsi que la liaison';
@@ -67,8 +68,11 @@
                         else
                         {
                             foreach ($port as $uneLigne) :
+                            $liasionPort = ''.$uneLigne->portDepart.' - '.$uneLigne->portArrive.''; 
                             echo ''.$uneLigne->portDepart.' - '.$uneLigne->portArrive.'';
+                            $session->set('PortD-PortA',$liasionPort); 
                             endforeach  ?> 
+                            
 
                             <p> Traversées pour le <?php echo ''.$_POST['date'].''; ?> Sélectionner la traversée souhaitée </p>
                             <table class="table table-striped">

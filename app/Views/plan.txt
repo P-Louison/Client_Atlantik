@@ -1,33 +1,3 @@
-UC 7 : 
+a faire :
 
-créer ModeleReservation
- -> auto-increment pour la clé
- -> avoir notraversee
- ->  avoir noclient
- -> avoir sommes des tarifs ajusté avec les quantités( faire une variable qui ajoute en multipliant par la quantité)
- -> booleen(false par défaut car je ne fais pas le paiement)
- -> mode de règlement = null
-
-
-dans ModeleTarifer :
-
-deux méthodes : 
-____________________________________________________________________
-getTypeTarif :
--> requete :
-SELECT t.LIBELLE, tarifer.TARIF FROM tarifer
-INNER JOIN type t on tarifer.LETTRECATEGORIE = t.LETTRECATEGORIE and tarifer.NOTYPE = t.NOTYPE
-INNER JOIN periode p on tarifer.NOPERIODE = p.NOPERIODE
-
-where($condition) : $condition = ['tarifer.NOPERIODE' => getNoPeriode, 'tarifer.noliaison =' => $noliaison];
-
-____________________________________________________________________
-
--> getNoPeriode
-requete : 
-SELECT DISTINCT(p.NOPERIODE) FROM tarifer 
-INNER JOIN periode p on tarifer.NOPERIODE = p.NOPERIODE
-
-where($condition) : $condition = ['p.DATEDEBUT <=' => $date, 'p.DATEFIN >=' => $date];
-
-
+regle de validation des données a insere dans la resa et dans enregistrer !

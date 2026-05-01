@@ -25,4 +25,6 @@ $routes->match(['get', 'post'], 'reservation/(:alphanum)', 'Visiteur::reservatio
 
 $routes->match(['get', 'post'], 'reservetraverse/(:alphanum)', 'Client::reservetraverse/$1');
 
+$routes->match(['get', 'post'], 'pageconfirmation', 'Client::pageconfirmation');
+
 

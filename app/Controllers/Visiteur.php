@@ -72,6 +72,7 @@ class Visiteur extends BaseController
                 /* identifiant et mot de passe OK : identifiant et profil sont stockés en session */
                 $session->set('identifiant', $ClientRetourne->MEL);
                 $session->set('profil', "client");
+                $session->set('noclient', $ClientRetourne->NOCLIENT);
                 $session->set('nomClient', $ClientRetourne->NOM);
                 $session->set('prenomClient', $ClientRetourne->PRENOM);
                 $session->set('adresseClient', $ClientRetourne->ADRESSE);
@@ -260,6 +261,10 @@ class Visiteur extends BaseController
                 $dispo['NOTRAVERSEE'] = ''.$uneTraversee->NOTRAVERSEE.'';
                 $dispo['HEURE'] = $uneTraversee->HEUREDEPART;
                 $dispo['BATEAU'] = $uneTraversee->NOM;
+
+                $session->set('notraversee',$uneTraversee->NOTRAVERSEE);
+                $session->set('heuredepart',$uneTraversee->HEUREDEPART);
+                
 
                 
                 foreach ($categorie as $uneCategorie)

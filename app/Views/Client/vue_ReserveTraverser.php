@@ -1,5 +1,5 @@
+<center>
 <h4>Réservation d'une traversée : </h4>
-
 <?php
 $session = session();
 if ($session->get('profil') == "client")
@@ -15,7 +15,7 @@ else
 
  <?php }
 ?>
-
+</center>
 <form action='' method='post'>
 <table class="table table-striped">
     <tr>
@@ -32,6 +32,7 @@ else
             echo '<td>';
                 echo '<input type="hidden" name="type['.$compteur.'][libelle]" value="'.$unTarif->LIBELLE.'"/>';
                 echo '<input type="hidden" name="type['.$compteur.'][notype]" value="'.$unTarif->NOTYPE.'"/>';
+                echo '<input type="hidden" name="type['.$compteur.'][lettrecategorie]" value="'.$unTarif->LETTRECATEGORIE.'"/>';
                 echo ''.$unTarif->LIBELLE.'';
             echo '</td>';
             echo '<td>';
@@ -61,15 +62,12 @@ else
     {
         /* lien vers l'UC 8 a faire (lien sous forme btn)*/
         ?>
-        <input type="submit" name="btnValider" value="Valider panier" class="btn btn-primary">
+        <a href="<?php echo site_url('pageconfirmation') ?>"><input type="button" name="btnValider" value="Valider panier" class="btn btn-primary"></a>
         <?php
     }
-
 ?>
 </form>
-
 <?php
-
 
     if (isset($_POST['btnValider']))
     {
@@ -89,18 +87,12 @@ else
                     $tabType['quantite'] = $unType['quantite'];
                     $tab[$compte] = $tabType;
                     $compte++;          
-                }
-                
+                }        
             }
-            $tab['montanttotal'] = (string)$montanttotal;
-
+            
+            $session->set('montanttotal', $montanttotal);
             $session->set('type', $tab);
         }
     }
-    
-    
-
-    
-
 ?>
 
