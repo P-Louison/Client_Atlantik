@@ -60,21 +60,22 @@ else
     }
     else
     {
-        /* lien vers l'UC 8 a faire (lien sous forme btn)*/
+        
         ?>
-        <a href="<?php echo site_url('pageconfirmation') ?>"><input type="button" name="btnValider" value="Valider panier" class="btn btn-primary"></a>
+        <input type="submit" name="btnValider" value="Valider Panier" class="btn btn-primary">
         <?php
     }
 ?>
 </form>
 <?php
 
-    if (isset($_POST['btnValider']))
+    if (isset($_POST['btnValider']) && (isset($_POST['type'])))
     {
         $tab = array();
         $montanttotal = 0;
         if (isset($_POST['type']))
         {
+            
             $compte = 0;
             foreach ($_POST['type'] as $unType)
             {
@@ -92,7 +93,17 @@ else
             
             $session->set('montanttotal', $montanttotal);
             $session->set('type', $tab);
+            
+        } 
+        else
+        {
+            echo 'Vous devez remplir au minimum une case pour valider !';
+            die();
         }
+        
     }
+    
+    
+    
 ?>
 

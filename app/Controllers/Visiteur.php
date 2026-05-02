@@ -262,8 +262,7 @@ class Visiteur extends BaseController
                 $dispo['HEURE'] = $uneTraversee->HEUREDEPART;
                 $dispo['BATEAU'] = $uneTraversee->NOM;
 
-                $session->set('notraversee',$uneTraversee->NOTRAVERSEE);
-                $session->set('heuredepart',$uneTraversee->HEUREDEPART);
+                
                 
 
                 

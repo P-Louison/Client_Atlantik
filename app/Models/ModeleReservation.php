@@ -9,14 +9,14 @@ class ModeleReservation extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'object'; // résultats retournés sous forme d'objet(s)
 
-    protected$allowedFields = ['noreseravtion', 'notraversee ','noclient','dateheure', 'montanttotal', 'paye', 'modereglement'];
+    protected $allowedFields = ['notraversee','noclient','dateheure', 'montanttotal', 'paye', 'modereglement'];
     // numero : clé primaire, non mentionné ci-dessus, car AUTOINCREMENT
 
     public function getnoreservation()
     {
         return $this->select('noreservation')
-        ->orderby('desc')
-        ->get()->first();
+        ->orderby('noreservation','desc')
+        ->get()->getResult();
     }
 
 }
