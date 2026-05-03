@@ -18,8 +18,7 @@ class Client extends BaseController
     public function reservetraverse($notraversee)
     {
         $session = session();
-
-        $session->set('notraversee',$notraversee);
+        helper(['form']);
 
         $modCategorie = new ModeleTarif();
         $date = $modCategorie->getNoPeriode($session->get('date'));
@@ -31,9 +30,87 @@ class Client extends BaseController
         
         $session->set('tarif',$data['tarif']);
 
-        return view('Templates/Header') 
-        . view('Client/vue_ReserveTraverser', $data)
-        . view('Templates/Footer'); 
+        if (isset($_POST['btnValider']))
+        {
+        $tab = array();
+        $montanttotal = 0;
+        
+            if (isset($_POST['type']))
+            {
+                $dateheureIns = date('Y-m-d H:i:s');
+                $compte = 0;
+                foreach ($_POST['type'] as $unType)
+                {
+                    if ($unType['quantite'] != "")
+                    {
+                        $tabType = array();
+                        $montanttotal += ((float)($unType['tarif'])) * ((float)($unType['quantite']));
+                        $tabType['libelle'] = $unType['libelle'];
+                        $tabType['notype'] = $unType['notype'];
+                        $tabType['quantite'] = $unType['quantite'];
+                        $tabType['lettrecategorie'] = $unType['lettrecategorie'];
+                        $tab[$compte] = $tabType;
+                        $compte++;          
+                    }        
+                }
+                
+                
+                if ($tab != array())
+                {
+                    $donneesAInserer = array(
+                    'notraversee' => (int)($notraversee),
+                    'noclient' => (int)$session->get('noclient'),
+                    'dateheure' => $dateheureIns,
+                    'montanttotal' => (double)($montanttotal),
+                    'paye' => 1,
+                    'modereglement' => null,            
+                    ); 
+                    
+                    $modReservation = new ModeleReservation(); 
+                    $noreservation = $modReservation->insert($donneesAInserer, true);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    
+                    foreach($tab as $unType)
+                    {
+                         $donneesAInserer = array(
+                        'NORESERVATION' => (int)$noreservation,
+                        'LETTRECATEGORIE' => $unType['lettrecategorie'],
+                        'NOTYPE' => (int)($unType['notype']),
+                        'QUANTITERESERVEE' => (int)$unType['quantite'],
+                        'QUANTITEEMBARQUEE' => null,
+                            ); 
+                        
+                        $modEnregistrer = new ModeleEnregistrer(); 
+                        $modEnregistrer->insert($donneesAInserer, false);
+                    }
+                       
+                    
+                }
+                else
+                {
+                    $data['tab'] = $tab;
+                    return view('Templates/Header') 
+                    . view('Client/vue_ReserveTraverser', $data)
+                    . view('Templates/Footer'); 
+                }
+                
+            } 
+            $data['tab'] = $tab;
+            return view('Templates/Header') 
+            . view('Client/vue_pageConfirmation', $data)
+            . view('Templates/Footer'); 
+        
+        } 
+        else
+        {
+            $data['tab'] = 0;
+            return view('Templates/Header') 
+            . view('Client/vue_ReserveTraverser', $data)
+            . view('Templates/Footer'); 
+        }         
+
+        
                 
     }
 
@@ -44,24 +121,16 @@ class Client extends BaseController
 
         $type = ($session->get('type'));
 
+
+
+
         var_dump($session->get('type'));
         die();
-        $dateheureIns = date('Y-m-d H:i:s');
+        
     
         $session->set('heureresa', $dateheureIns);
 
-        $donneesAInserer = array(
-            'notraversee' => (int)($session->get('notraversee')),
-            'noclient' => (int)$session->get('noclient'),
-            'dateheure' => $dateheureIns,
-            'montanttotal' => (double)$session->get('montanttotal'),
-            'paye' => 1,
-            'modereglement' => null,            
-        ); 
         
-        $modReservation = new ModeleReservation(); 
-        $modReservation->insert($donneesAInserer, false);
-        $noreservation = $modReservation->getnoreservation();
 
         
 
@@ -69,21 +138,10 @@ class Client extends BaseController
         foreach($type as $unType)
         {
         
-            $donneesAInserer = array(
-                'noreservation' => (int)$noreservation,
-                'lettrecategorie' => $unType['lettrecategorie'],
-                'notype' => (int)$unType['notype'],
-                'quantitereservee' => (int)$unType['quantite'],
-                'quantitembarquee' => null,
-            ); 
-        
-        $modEnregistrer = new ModeleEnregistrer(); 
-        $modEnregistrer->insert($donneesAInserer, false);
+            
         }
         
-        return view('Templates/Header') 
-        . view('Client/vue_pageConfirmation')
-        . view('Templates/Footer'); 
+        
         
         
         

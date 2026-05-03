@@ -54,13 +54,18 @@ else
 <?php
     if ($session->get('profil') != "client")
     {
+        
         ?>
         <input type="submit" value="Valider panier" class="disabled btn btn-primary">
         <?php
     }
     else
     {
-        
+        if ($tab == array())
+        {
+            echo 'vieillez a remplir un ou plusieurs cases afin de poursuivre la réservation !';
+            echo '<br>';
+        }  
         ?>
         <input type="submit" name="btnValider" value="Valider Panier" class="btn btn-primary">
         <?php
@@ -69,41 +74,5 @@ else
 </form>
 <?php
 
-    if (isset($_POST['btnValider']) && (isset($_POST['type'])))
-    {
-        $tab = array();
-        $montanttotal = 0;
-        if (isset($_POST['type']))
-        {
-            
-            $compte = 0;
-            foreach ($_POST['type'] as $unType)
-            {
-                if ($unType['quantite'] != "")
-                {
-                    $tabType = array();
-                    $montanttotal += ((float)($unType['tarif'])) * ((float)($unType['quantite']));
-                    $tabType['libelle'] = $unType['libelle'];
-                    $tabType['notype'] = $unType['notype'];
-                    $tabType['quantite'] = $unType['quantite'];
-                    $tab[$compte] = $tabType;
-                    $compte++;          
-                }        
-            }
-            
-            $session->set('montanttotal', $montanttotal);
-            $session->set('type', $tab);
-            
-        } 
-        else
-        {
-            echo 'Vous devez remplir au minimum une case pour valider !';
-            die();
-        }
-        
-    }
-    
-    
-    
-?>
+  
 

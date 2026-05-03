@@ -12,11 +12,6 @@ class ModeleReservation extends Model
     protected $allowedFields = ['notraversee','noclient','dateheure', 'montanttotal', 'paye', 'modereglement'];
     // numero : clé primaire, non mentionné ci-dessus, car AUTOINCREMENT
 
-    public function getnoreservation()
-    {
-        return $this->select('noreservation')
-        ->orderby('noreservation','desc')
-        ->get()->getResult();
-    }
+    
 
 }
