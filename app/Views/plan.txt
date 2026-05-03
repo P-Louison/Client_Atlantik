@@ -1,3 +1,4 @@
 a faire :
 
-regle de validation des données a insere dans la resa et dans enregistrer !
+- regle de validation des données a insere dans la resa et dans enregistrer !
+- faire en sorte que je ne puisse pas reserve quand la quantite est de 0 !
