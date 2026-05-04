@@ -254,18 +254,16 @@ class Visiteur extends BaseController
             $data['categorie'] = $categorie;
 
             $tab = array();
+            $caparest = array();
             foreach ($traversee as $uneTraversee)
             {
                 $dispo = array();
+                $caparestante = array();
 
                 $dispo['NOTRAVERSEE'] = ''.$uneTraversee->NOTRAVERSEE.'';
                 $dispo['HEURE'] = $uneTraversee->HEUREDEPART;
                 $dispo['BATEAU'] = $uneTraversee->NOM;
 
-                
-                
-
-                
                 foreach ($categorie as $uneCategorie)
                 {
                     $capa = $modTraverse->getCapaciteMax($uneCategorie->LETTRECATEGORIE, $uneTraversee->NOTRAVERSEE);
@@ -281,11 +279,15 @@ class Visiteur extends BaseController
                         $quantiteEnr = $unequantitereserv->quantite;
                     }
 
-                    $libelle = 'PLACE'.$uneCategorie->LETTRECATEGORIE.''; 
-                    $dispo[$libelle] =  (string)((int)$capacitemax - (int)$quantiteEnr);         
-                }            
+                    
+                    $dispo[$uneCategorie->LETTRECATEGORIE] =  (string)((int)$capacitemax - (int)$quantiteEnr); 
+                    $caparestante[$uneCategorie->LETTRECATEGORIE] = (string)((int)$capacitemax - (int)$quantiteEnr); 
+                }      
+
+                $caparest[$uneTraversee->NOTRAVERSEE] = $caparestante;
                 $tab[$uneTraversee->NOTRAVERSEE] = $dispo;            
             }
+            $session->set('caparestante', $caparest);
             $data['resultat'] = $tab;
             $session->set('resultat', $data['resultat']);
             

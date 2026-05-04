@@ -19,6 +19,7 @@ class Client extends BaseController
     {
         $session = session();
         helper(['form']);
+        $data['notraversee'] = $notraversee;
 
         $modCategorie = new ModeleTarif();
         $date = $modCategorie->getNoPeriode($session->get('date'));
@@ -78,7 +79,7 @@ class Client extends BaseController
                         'LETTRECATEGORIE' => $unType['lettrecategorie'],
                         'NOTYPE' => (int)($unType['notype']),
                         'QUANTITERESERVEE' => (int)$unType['quantite'],
-                        'QUANTITEEMBARQUEE' => null,
+                        'QUANTITEEMBARQUEE' => 0,
                             ); 
                         
                         $modEnregistrer = new ModeleEnregistrer(); 

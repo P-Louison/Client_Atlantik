@@ -26,24 +26,35 @@ else
 
     <?php   
     $compteur = 0;
-    foreach($tarif as $unTarif)
+    $tab = $session->get('caparestante')[$notraversee];
+    foreach($tab as $cle => $uneCapa)
     {
-        echo '<tr>';
-            echo '<td>';
-                echo '<input type="hidden" name="type['.$compteur.'][libelle]" value="'.$unTarif->LIBELLE.'"/>';
-                echo '<input type="hidden" name="type['.$compteur.'][notype]" value="'.$unTarif->NOTYPE.'"/>';
-                echo '<input type="hidden" name="type['.$compteur.'][lettrecategorie]" value="'.$unTarif->LETTRECATEGORIE.'"/>';
-                echo ''.$unTarif->LIBELLE.'';
-            echo '</td>';
-            echo '<td>';
-                echo '<input type="hidden" name="type['.$compteur.'][tarif]" value="'.$unTarif->TARIF.'" />';
-                echo ''.$unTarif->TARIF.'';
-            echo '</td>';
-            echo '<td>';
-                echo '<input type="text" name="type['.$compteur.'][quantite]" value="" />';
-            echo '</td>';
-        echo '</tr>';
-        $compteur++;
+        foreach($tarif as $unTarif)
+        {
+            
+            if (((int)($uneCapa)) > 0 && ($cle == $unTarif->LETTRECATEGORIE))
+            {
+                var_dump($cle);
+            var_dump($uneCapa);
+            var_dump($unTarif->LETTRECATEGORIE);
+                echo '<tr>';
+                    echo '<td>';
+                        echo '<input type="hidden" name="type['.$compteur.'][libelle]" value="'.$unTarif->LIBELLE.'"/>';
+                        echo '<input type="hidden" name="type['.$compteur.'][notype]" value="'.$unTarif->NOTYPE.'"/>';
+                        echo '<input type="hidden" name="type['.$compteur.'][lettrecategorie]" value="'.$unTarif->LETTRECATEGORIE.'"/>';
+                        echo ''.$unTarif->LIBELLE.'';
+                    echo '</td>';
+                    echo '<td>';
+                        echo '<input type="hidden" name="type['.$compteur.'][tarif]" value="'.$unTarif->TARIF.'" />';
+                        echo ''.$unTarif->TARIF.'';
+                    echo '</td>';
+                    echo '<td>';
+                        echo '<input type="text" name="type['.$compteur.'][quantite]" value="" />';
+                    echo '</td>';
+                echo '</tr>';
+                $compteur++;
+            }
+        }
     }
     
     
