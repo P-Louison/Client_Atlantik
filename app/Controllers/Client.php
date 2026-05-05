@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Models\ModeleAdministrateur;
 use App\Models\ModeleClient; 
+use App\Models\ModeleCategorie; 
 use App\Models\ModeleLiaison;
 use App\Models\ModeleTarif;
 use App\Models\ModelePeriode;
@@ -19,17 +20,23 @@ class Client extends BaseController
     {
         $session = session();
         helper(['form']);
+        $tab = array();
         $data['notraversee'] = $notraversee;
 
-        $modCategorie = new ModeleTarif();
-        $date = $modCategorie->getNoPeriode($session->get('date'));
+        $modCategorie = new ModeleCategorie();
+        $categorie = $modCategorie->findAll();
+
+        $modTarif = new ModeleTarif();
+        $date = $modTarif->getNoPeriode($session->get('date'));
         foreach($date as $uneDate)
         {
             $periode = $uneDate->PERIODE;
         }
-        $data['tarif'] = $modCategorie->getTypeTarif($periode, $session->get('noliaison'));
+        $data['tarif'] = $modTarif->getTypeTarif($periode, $session->get('noliaison'));
         
         $session->set('tarif',$data['tarif']);
+
+        $data['valeurSuperieur'] = False;
 
         if (isset($_POST['btnValider']))
         {
@@ -54,10 +61,53 @@ class Client extends BaseController
                         $compte++;          
                     }        
                 }
+                $nbdemande = array();
+                foreach($categorie as $uneCategorie)
+                {
+                    $nbdemande[$uneCategorie->LETTRECATEGORIE] = 0 ;
+                }
+                
+                
+                foreach($nbdemande as $cle => $valeur)
+                {
+                    foreach($_POST['type'] as $unType)
+                    {
+                        if($unType['quantite'] != "")
+                        {
+                            if($cle == $unType['lettrecategorie'])
+                            {
+                                $nbdemande[$cle] += (int)($unType['quantite']);
+                            }
+                        }
+                        
+                    }  
+
+                }   
+                
+
                 
                 
                 if ($tab != array())
                 {
+
+                    foreach($nbdemande as $cle => $valeur)
+                    {
+                        
+                        foreach($session->get('caparestante')[$notraversee] as $element => $partie)
+                        {
+                            if($cle == $element)
+                            {
+                                if($valeur > (int)($partie))
+                                {                                    
+                                    $data['valeurSuperieur'] = True;
+                                    return view('Templates/Header') 
+                                    . view('Client/vue_ReserveTraverser', $data)
+                                    . view('Templates/Footer'); 
+                                }
+                            }
+                        }
+                    }
+
                     $donneesAInserer = array(
                     'notraversee' => (int)($notraversee),
                     'noclient' => (int)$session->get('noclient'),

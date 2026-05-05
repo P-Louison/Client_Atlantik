@@ -6,5 +6,5 @@
     $session = session();
     echo 'Liaison '.$session->get('PortD-PortA').'';
     echo '<br>';
-    echo 'Traversée n° '.$session->get('notraversee').' le '.$session->get('date').' à '.$session->get('heuredepart').'';
+    echo 'Traversée n° '.$notraversee.' le '.$session->get('date').' à '.$session->get('heuredepart').'';
 ?>

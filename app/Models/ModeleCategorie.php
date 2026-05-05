@@ -2,7 +2,7 @@
 namespace App\Models;
 use CodeIgniter\Model;
  
-class ModeleTarif extends Model
+class ModeleCategorie extends Model
 {
     protected $table = 'categorie'; // alias com sur la table commande
     protected $primaryKey = 'lettrecategorie';

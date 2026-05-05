@@ -12,9 +12,19 @@ else
 { ?>
     <h5> Il faut être connecté à un profil pour réserver ! </h5>
     <p> Merci de bien vouloir vous connectez ou de créez un compte pour procéder à la réservation ! </p>
+    
 
- <?php }
+<?php }
+if ($valeurSuperieur == True)
+{
+    echo '<br>';
+    echo 'Les valeurs renseigner dépasse la capacité du bateau';
+}
+
+
+
 ?>
+
 </center>
 <form action='' method='post'>
 <table class="table table-striped">
@@ -47,7 +57,7 @@ else
                         echo ''.$unTarif->TARIF.'';
                     echo '</td>';
                     echo '<td>';
-                        echo '<input type="text" name="type['.$compteur.'][quantite]" value="" />';
+                        echo '<input type="text" name="type['.$compteur.'][quantite]" value="0" pattern="[0-9]" />';
                     echo '</td>';
                 echo '</tr>';
                 $compteur++;
