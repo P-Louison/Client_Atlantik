@@ -16,12 +16,13 @@ helper(['assets']);
  
 class Client extends BaseController
 {
-    public function reservetraverse($notraversee)
+    public function reservetraverse($notraversee,$heure)
     {
         $session = session();
         helper(['form']);
         $tab = array();
         $data['notraversee'] = $notraversee;
+        $data['heure'] = $heure;
 
         $modCategorie = new ModeleCategorie();
         $categorie = $modCategorie->findAll();
@@ -117,8 +118,12 @@ class Client extends BaseController
                     'modereglement' => null,            
                     ); 
                     
+
                     $modReservation = new ModeleReservation(); 
                     $noreservation = $modReservation->insert($donneesAInserer, true);
+                    
+                    $session->set('montanttotal', $montanttotal);
+                    $session->set('noreservation', $noreservation);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     
@@ -165,38 +170,6 @@ class Client extends BaseController
                 
     }
 
-    public function pageconfirmation()
-    {
-
-        $session = session();
-
-        $type = ($session->get('type'));
-
-
-
-
-        var_dump($session->get('type'));
-        die();
-        
     
-        $session->set('heureresa', $dateheureIns);
-
-        
-
-        
-
-        
-        foreach($type as $unType)
-        {
-        
-            
-        }
-        
-        
-        
-        
-        
-                
-    }
 
 }   

@@ -25,13 +25,10 @@ class FiltreClient implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get('profil')!='Client') {
+        if(session()->get('profil')!='client') {
             return redirect()->to(base_url('seconnecter'));
           }
-        else
-        {
-            return redirect()->to(base_url('reservetraverse'));
-        }
+        
     }
  
     /**

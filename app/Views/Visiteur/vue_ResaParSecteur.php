@@ -92,7 +92,7 @@
                             foreach($resultat as $unResultat)
                             {
                                 echo '<tr>';
-                                echo '<td>'.anchor('reservetraverse/'.$unResultat['NOTRAVERSEE'],$unResultat['NOTRAVERSEE']).'</td><td>'.$unResultat['HEURE'].'</td><td>'.$unResultat['BATEAU'].'</td>';
+                                echo '<td>'.anchor('reservetraverse/'.$unResultat['NOTRAVERSEE'].'/'.$unResultat['HEURE'].'',$unResultat['NOTRAVERSEE']).'</td><td>'.$unResultat['HEURE'].'</td><td>'.$unResultat['BATEAU'].'</td>';
                                 
                                 foreach($categorie as $uneCategorie)
                                 {

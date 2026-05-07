@@ -2,19 +2,23 @@
 <h4>Réservation d'une traversée : </h4>
 <?php
 $session = session();
-if ($session->get('profil') == "client")
-{
-    echo 'Nom : '.$session->get('nomClient').'<br>';
-    echo 'Adresse : '.$session->get('adresseClient').'<br>';
-    echo 'Cp : '.$session->get('cpClient').' Ville : '.$session->get('villeClient').'';
-}
-else
-{ ?>
-    <h5> Il faut être connecté à un profil pour réserver ! </h5>
-    <p> Merci de bien vouloir vous connectez ou de créez un compte pour procéder à la réservation ! </p>
-    
+?> 
+<div class="row container-fluid">
+    <div class="col-md-6"> <?php
 
-<?php }
+        echo 'Liaison '.$session->get('PortD-PortA').'<br>';
+        echo 'Traversée n° '.$notraversee.' le '.$session->get('date').' à '.$heure.'';
+    ?>
+    </div>
+    <div class="col-md-6"> <?php
+        echo 'Nom : '.$session->get('nomClient').'<br>';
+        echo 'Adresse : '.$session->get('adresseClient').'<br>';
+        echo 'Cp : '.$session->get('cpClient').' Ville : '.$session->get('villeClient').'';
+    ?>
+    </div>
+</div>
+
+<?php
 if ($valeurSuperieur == True)
 {
     echo '<br>';
@@ -44,7 +48,6 @@ if ($valeurSuperieur == True)
             
             if (((int)($uneCapa)) > 0 && ($cle == $unTarif->LETTRECATEGORIE))
             {
-               
                 echo '<tr>';
                     echo '<td>';
                         echo '<input type="hidden" name="type['.$compteur.'][libelle]" value="'.$unTarif->LIBELLE.'"/>';
@@ -57,7 +60,7 @@ if ($valeurSuperieur == True)
                         echo ''.$unTarif->TARIF.'';
                     echo '</td>';
                     echo '<td>';
-                        echo '<input type="text" name="type['.$compteur.'][quantite]" value="0" pattern="[0-9]" />';
+                        echo '<input type="text" name="type['.$compteur.'][quantite]" pattern="*[0-9]*" />';
                     echo '</td>';
                 echo '</tr>';
                 $compteur++;
@@ -75,7 +78,7 @@ if ($valeurSuperieur == True)
     {
         
         ?>
-        <input type="submit" value="Valider panier" class="disabled btn btn-primary">
+        <input type="submit" value="Valider panier" class="btn btn-primary">
         <?php
     }
     else

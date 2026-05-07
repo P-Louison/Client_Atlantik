@@ -23,8 +23,7 @@ $routes->match(['get', 'post'], 'sedeconnecter', 'Visiteur::seDeconnecter');
 $routes->match(['get', 'post'], 'reservation', 'Visiteur::reservation');
 $routes->match(['get', 'post'], 'reservation/(:alphanum)', 'Visiteur::reservation/$1');
 
-$routes->match(['get', 'post'], 'reservetraverse/(:alphanum)', 'Client::reservetraverse/$1');
+$routes->match(['get', 'post'], 'reservetraverse/(:alphanum)/(:any)', 'Client::reservetraverse/$1/$2', ["filter"=> "filtreclient"]);
 
-$routes->match(['get', 'post'], 'pageconfirmation', 'Client::pageconfirmation');
 
 
