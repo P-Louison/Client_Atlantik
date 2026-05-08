@@ -78,6 +78,10 @@ class Visiteur extends BaseController
                 $session->set('adresseClient', $ClientRetourne->ADRESSE);
                 $session->set('cpClient', $ClientRetourne->CODEPOSTAL);
                 $session->set('villeClient', $ClientRetourne->VILLE);
+                $session->set('telFixeClient', $ClientRetourne->TELEPHONEFIXE);
+                $session->set('telPortClient', $ClientRetourne->TELEPHONEMOBILE);
+                $session->set('melClient', $ClientRetourne->MEL);
+                $session->set('mdpClient', $ClientRetourne->MOTDEPASSE);
                 
                 $data['Identifiant'] = $Identifiant;
                 echo view('Templates/Header', $data);
@@ -150,15 +154,15 @@ class Visiteur extends BaseController
         /* INSERTION PRODUIT SAISI DANS BDD */
         
         $donneesAInserer = array(
-            'nom' => $this->request->getPost('txtNom'),
-            'prenom' => $this->request->getPost('txtPrenom'),
-            'adresse' => $this->request->getPost('txtAdresse'),
-            'codepostal' => $this->request->getPost('txtCodePostal'),
-            'ville' => $this->request->getPost('txtVille'),
-            'telephonefixe' => $this->request->getPost('txtTelephoneFixe'),
-            'telephonemobile' => $this->request->getPost('txtTelephoneMobile'),
-            'mel' => $this->request->getPost('txtMel'),
-            'motdepasse' => $this->request->getPost('txtMotDePasse'),
+            'NOM' => $this->request->getPost('txtNom'),
+            'PRENOM' => $this->request->getPost('txtPrenom'),
+            'ADRESSE' => $this->request->getPost('txtAdresse'),
+            'CODEPOSTAL' => $this->request->getPost('txtCodePostal'),
+            'VILLE' => $this->request->getPost('txtVille'),
+            'TELEPHONEFIXE' => $this->request->getPost('txtTelephoneFixe'),
+            'TELEPHONEMOBILE' => $this->request->getPost('txtTelephoneMobile'),
+            'MEL' => $this->request->getPost('txtMel'),
+            'MOTDEPASSE' => $this->request->getPost('txtmdp'),
             
         ); 
         
