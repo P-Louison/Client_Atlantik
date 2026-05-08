@@ -1,6 +1,6 @@
 <br><br><br>
 <?php
-if ($comptemodif) { // true (1) si ajout, false (0) sinon
+if ($comptemodif) {
     echo 'Modification du compte effectué.';
 } else {
     echo 'Echec de modification';
