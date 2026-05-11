@@ -25,7 +25,8 @@ $routes->match(['get', 'post'], 'reservation/(:alphanum)', 'Visiteur::reservatio
 
 $routes->match(['get', 'post'], 'reservetraverse/(:alphanum)/(:any)', 'Client::reservetraverse/$1/$2', ["filter"=> "filtreclient"]);
 
-$routes->match(['get', 'post'], 'modificationcompte/(:alphanum)', 'Client::modificationcompte/$1');
+$routes->match(['get', 'post'], 'modificationcompte/(:alphanum)', 'Client::modificationcompte/$1', ["filter"=> "filtreclient"]);
+$routes->match(['get', 'post'], 'historique/(:alphanum)', 'Client::historique/$1', ["filter"=> "filtreclient"]);
 
 
 

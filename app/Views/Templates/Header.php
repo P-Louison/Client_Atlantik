@@ -27,6 +27,7 @@
           <a href="<?php echo site_url('afficheliaison') ?>" class="btn btn-outline-warning">Afficher les Liaisons</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('reservation') ?>" class="btn btn-outline-warning">Réserver une traversée</a>&nbsp;&nbsp;
           <a href="<?php echo site_url('modificationcompte/'.$session->get('noclient').'') ?>" class="btn btn-outline-warning">Paramètre</a>&nbsp;&nbsp;
+          <a href="<?php echo site_url('historique/'.$session->get('noclient').'') ?>" class="btn btn-outline-warning">Mes réservations</a>&nbsp;&nbsp;
         <?php endif;  ?>
 
         <?php else : ?>

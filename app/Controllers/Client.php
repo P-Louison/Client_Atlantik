@@ -246,6 +246,20 @@ class Client extends BaseController
         . view('Templates/Footer'); 
     }
 
+
+    public function historique($noclient = null)
+    {
+        $pager = \Config\Services::pager();
+
+        $modReservation = new ModeleReservation(); 
+
+        $data ['resainfo'] = $modReservation->getInfo($noclient);
+        $data['pager'] = $modReservation->pager;
+
+        return view('Templates/Header') 
+        . view('Client/vue_HistoriqueResa', $data)
+        . view('Templates/Footer'); 
+    }
     
 
 }   
