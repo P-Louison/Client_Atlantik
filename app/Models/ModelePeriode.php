@@ -14,7 +14,7 @@ class ModelePeriode extends Model
 
     public function getAllPeriode($noliaison)
     {
-        $date = date("d-m-Y");
+        $date = date("Y-m-d");
         $condition = ['datefin >=' => $date, 'tarifer.noliaison =' => $noliaison];
 
         return $this->join('tarifer', 'periode.noperiode = tarifer.noperiode', 'inner')

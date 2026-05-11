@@ -162,7 +162,7 @@ class Visiteur extends BaseController
             'TELEPHONEFIXE' => $this->request->getPost('txtTelephoneFixe'),
             'TELEPHONEMOBILE' => $this->request->getPost('txtTelephoneMobile'),
             'MEL' => $this->request->getPost('txtMel'),
-            'MOTDEPASSE' => $this->request->getPost('txtmdp'),
+            'MOTDEPASSE' => $this->request->getPost('txtMotDePasse'),
             
         ); 
         
@@ -200,14 +200,15 @@ class Visiteur extends BaseController
             $modType = new ModeleTarif();
             $data['type'] = $modType->getAllType();
 
-            $modNOmbre = new ModeleTarif();
-            $data['nombre'] = $modNOmbre->getNombreType($noliaison);
+            $modNombre = new ModeleTarif();
+            $data['nombre'] = $modNombre->getNombreType($noliaison);
 
             $modCategorie = new ModeleTarif();
             $data['categorie'] = $modCategorie->getAllCategorie();
 
             $modPeriode = new ModelePeriode();
             $data['periode'] = $modPeriode->getAllPeriode($noliaison);
+            $data['PremierePeriode'] = $modPeriode->getAllPeriode($noliaison);
 
             return view('Templates/Header') 
             . view('Visiteur/vue_Tarif',$data)

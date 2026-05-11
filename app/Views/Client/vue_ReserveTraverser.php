@@ -60,7 +60,7 @@ if ($valeurSuperieur == True)
                         echo ''.$unTarif->TARIF.'';
                     echo '</td>';
                     echo '<td>';
-                        echo '<input type="text" name="type['.$compteur.'][quantite]" pattern="*[0-9]*" />';
+                        echo '<input type="text" name="type['.$compteur.'][quantite]" pattern="[0-9]*" />';
                     echo '</td>';
                 echo '</tr>';
                 $compteur++;

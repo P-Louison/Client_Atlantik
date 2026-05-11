@@ -40,7 +40,13 @@
                                 echo '<tr>';
                             
                             echo '<td>'.$unType->LETTRECATEGORIE."".$unType->NOTYPE." - ".$unType->LIBELLE.'</td>';
-                            $numperiode = 1;
+                            
+                            foreach($PremierePeriode as $unePeriode)
+                            {
+                                $numperiode = $unePeriode->noperiode;
+                                break;
+                            }
+                            
                             foreach($tarif as $unTarif)
                             {
                                 if ($unTarif->NOPERIODE == $numperiode && $unTarif->LETTRECATEGORIE == $unType->LETTRECATEGORIE && $unTarif->NOTYPE == $unType->NOTYPE )
